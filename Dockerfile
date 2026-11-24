@@ -16,6 +16,8 @@ RUN npm prune --omit=dev
 # ---- runtime stage ----
 FROM node:24-alpine AS runtime
 ENV NODE_ENV=production
+# keep Node's heap well under a 256 MB container so the GC runs before OOM
+ENV NODE_OPTIONS=--max-old-space-size=128 --max-semi-space-size=8
 WORKDIR /app
 RUN apk add --no-cache ca-certificates unzip
 

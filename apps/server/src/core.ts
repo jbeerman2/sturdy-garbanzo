@@ -140,6 +140,7 @@ export async function startCore(): Promise<void> {
   const child = spawn(binPath(), ["run", "-config", cfgFile], {
     cwd: config.coreDir,
     stdio: "ignore",
+    env: { ...process.env, GOMEMLIMIT: process.env.XRAY_MEMLIMIT || "64MiB" },
   }) as ManagedChild;
   proc = child;
   running = true;

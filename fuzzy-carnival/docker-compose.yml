@@ -1,0 +1,16 @@
+# VibeNest (Coolify) deployment: persistent storage for /data
+services:
+  siderail:
+    build: .
+    restart: unless-stopped
+    environment:
+      - PORT=8080
+      - NODE_ENV=production
+      - SIDERAIL_DATA_DIR=/data
+    ports:
+      - "8080:8080"
+    volumes:
+      - siderail-data:/data
+
+volumes:
+  siderail-data:

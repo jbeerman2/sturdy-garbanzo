@@ -7,6 +7,10 @@ services:
       - PORT=8080
       - NODE_ENV=production
       - SIDERAIL_DATA_DIR=/data
+      # keep Node's heap well under a 256 MB container so the GC runs before OOM
+      - NODE_OPTIONS=--max-old-space-size=128 --max-semi-space-size=8
+      # Xray (Go) soft memory cap, read by core.ts when spawning
+      - XRAY_MEMLIMIT=64MiB
     ports:
       - "8080:8080"
     volumes:
